@@ -1,0 +1,566 @@
+\documentclass[
+  % -- opções da classe memoir --
+  12pt,        % tamanho da fonte
+  %openright,      % capítulos começam em pág ímpar (insere página vazia caso preciso)
+  oneside,      % para impressão em recto e verso. Oposto a oneside
+  a4paper,      % tamanho do papel.
+  % -- opções da classe abntex2 --
+  chapter=TITLE,    % títulos de capítulos convertidos em letras maiúsculas
+  section=TITLE,    % títulos de seções convertidos em letras maiúsculas
+  %subsection=TITLE,  % títulos de subseções convertidos em letras maiúsculas
+  %subsubsection=TITLE,% títulos de subsubseções convertidos em letras maiúsculas
+  % -- opções do pacote babel --
+  brazil,       % o último idioma é o principal do documento
+  english,      % idioma adicional para hifenização
+]{abntex2}
+
+% ---
+% Pacotes básicos
+% ---
+\usepackage[
+  top=3cm,
+  bottom=2cm,
+  left=3cm,
+  right=2cm
+]{geometry}
+\usepackage{helvet}      % Usa a fonte Helvetica
+\usepackage{inconsolata}
+\usepackage[T1]{fontenc}    % Selecao de codigos de fonte.
+\usepackage[utf8]{inputenc}    % Codificacao do documento (conversão automática dos acentos)
+\usepackage{indentfirst}    % Indenta o primeiro parágrafo de cada seção.
+\usepackage{color}        % Controle das cores
+\usepackage{graphicx}      % Inclusão de gráficos
+\usepackage{microtype}       % para melhorias de justificação
+\usepackage{braket}
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage{nicematrix}
+\usepackage{qcircuit}
+\usepackage{subcaption}
+\usepackage{caption}
+\usepackage{listings}
+\usepackage[table]{xcolor}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{makecell}
+\usepackage[ruled,vlined,linesnumbered]{algorithm2e}
+\usepackage[framemethod=tikz]{mdframed}
+\usepackage{afterpage}
+\usepackage{xcolor}
+
+\newcommand\blankpage{%
+  \null
+  \thispagestyle{empty}%
+  \addtocounter{page}{-1}%
+\newpage}
+
+\makeatletter
+\renewcommand\small{\@setfontsize\small{11pt}{1}}
+\makeatother
+
+\makeatletter
+\renewcommand\footnotesize{\@setfontsize\footnotesize{11pt}{1}}
+\makeatother
+
+\captionsetup{font=small}
+
+\lstdefinestyle{pythonstyle}{
+  language=Python,
+  basicstyle=\ttfamily\tiny,
+  keywordstyle=\color{blue},
+  stringstyle=\color{green!50!black},
+  commentstyle=\color{gray},
+  showstringspaces=false,
+  breaklines=true,
+  tabsize=4,
+  numbers=left,
+  numberstyle=\tiny\color{gray!70},
+  stepnumber=1,
+  numbersep=4pt,
+  xleftmargin=12pt
+}
+
+\lstdefinestyle{cppstyle}{
+  language=C++,
+  basicstyle=\ttfamily\tiny,
+  keywordstyle=\color{blue},
+  stringstyle=\color{green!50!black},
+  commentstyle=\color{gray},
+  showstringspaces=false,
+  breaklines=true,
+  tabsize=4,
+  numbers=left,
+  numberstyle=\tiny\color{gray!70},
+  stepnumber=1,
+  numbersep=4pt,
+  xleftmargin=12pt
+}
+% ---
+
+\newtheorem{inner_teorema}{Theorem}
+
+\newenvironment{teorema}
+{
+  \begin{mdframed}[
+      topline=false,
+      bottomline=false,
+      rightline=false,
+      leftline=true,
+      linewidth=2pt,         % Thickness of the line
+      linecolor=black!70,    % Color of the line
+      innerleftmargin=1em,   % Space between line and text
+      skipabove=\medskipamount,
+      skipbelow=\medskipamount
+    ]
+  \begin{inner_teorema}}
+    {
+    \end{inner_teorema}
+\end{mdframed}}
+
+\theoremstyle{definition}
+\newtheorem{inner_proof}{Proof}
+
+\newenvironment{prova}
+{
+  \begin{mdframed}[
+      topline=false,
+      bottomline=false,
+      rightline=false,
+      leftline=true,
+      linewidth=2pt,         % Thickness of the line
+      linecolor=black!40,    % Color of the line
+      innerleftmargin=1em,   % Space between line and text
+      skipabove=\medskipamount,
+      skipbelow=\medskipamount
+    ]
+  \begin{inner_proof}}
+    {
+      \qed
+    \end{inner_proof}
+\end{mdframed}}
+
+\renewcommand{\familydefault}{\sfdefault}
+
+% ---
+% Pacotes adicionais, usados apenas no âmbito do Modelo Canônico do abnteX2
+% ---
+\usepackage{lipsum}        % para geração de dummy text
+% ---
+
+% ---
+% Pacotes de citações
+% ---
+\usepackage[brazilian,hyperpageref]{backref}   % Paginas com as citações na bibl
+\usepackage[alf]{abntex2cite}  % Citações padrão ABNT
+
+% ---
+% CONFIGURAÇÕES DE PACOTES
+% ---
+
+% ---
+% Configurações do pacote backref
+% Usado sem a opção hyperpageref de backref
+\renewcommand{\backrefpagesname}{Cited on page(s):~}
+% Default text before page numbers
+\renewcommand{\backref}{}
+% Defines the citation texts
+\renewcommand*{\backrefalt}[4]{
+  \ifcase #1 %
+  Not cited in the text.%
+  \or
+  Cited on page #2.%
+  \else
+  Cited #1 times on pages #2.%
+\fi}%
+% ---
+
+% ---
+% Informações de dados para CAPA e FOLHA DE ROSTO
+% ---
+\titulo{Título do trabalho em português: subtítulo (se houver)}
+\autor{Nome completo do autor}
+\local{Florianópolis}
+\data{2026}
+\orientador{Prof(a). [NOME], Dr(a).}
+\coorientador{Dr(a). [TITULO]}
+\instituicao{%
+  Universidade Federal de Santa Catarina\par
+  Campus Florianópolis\par
+  Curso de Graduação em Ciência da Computação\par
+}
+\tipotrabalho{Tese}
+% O preambulo deve conter o tipo do trabalho, o objetivo,
+% o nome da instituição e a área de concentração
+\preambulo{Trabalho de Conclusão de Curso submetido ao Curso de Graduação em Ciência da Computação do Centro Tecnológico da Universidade Federal de Santa Catarina para obtenção do título de Bacharel em Ciência da Computação.}
+% ---
+
+\renewcommand{\ABNTEXchapterfontsize}{\bfseries\normalsize}
+\renewcommand{\ABNTEXsectionfontsize}{\normalsize}
+\renewcommand{\ABNTEXsubsectionfontsize}{\bfseries\normalsize}
+\renewcommand{\ABNTEXsubsubsectionfontsize}{\normalsize}
+
+% ---
+% CUSTOMIZAÇÃO DA CAPA - PADRÃO UFSC
+% ---
+\renewcommand{\imprimircapa}{%
+  \begin{capa}%
+    \center
+    \fontsize{12}{1.5}
+
+    \includegraphics[width=1.84cm]{brasao_UFSC_vertical_sigla.pdf}
+
+    % Cabeçalho com a Instituição
+    {\ABNTEXchapterfont\MakeUppercase{\imprimirinstituicao}}
+
+    \vfill
+
+    % Nome do Autor
+    {\ABNTEXchapterfont\imprimirautor}
+
+    \vfill
+
+    % Título do Trabalho
+    \begin{center}
+      {\ABNTEXchapterfont\bfseries\MakeUppercase{\imprimirtitulo}}
+    \end{center}
+
+    \vfill
+
+    % Local e Data no rodapé
+    {\ABNTEXchapterfont\imprimirlocal}\\
+    {\ABNTEXchapterfont\imprimirdata}
+  \end{capa}
+}
+
+% ---
+% CUSTOMIZAÇÃO DA FOLHA DE ROSTO - PADRÃO UFSC
+% ---
+\makeatletter
+\renewcommand{\folhaderostocontent}{
+  \begin{center}
+    \fontsize{12}{1.5}
+
+    % Nome do Autor no topo
+    {\ABNTEXchapterfont{\imprimirautor}}
+
+    \vfill
+    \vfill
+
+    % Título do Trabalho
+    \begin{center}
+      {\ABNTEXchapterfont\bfseries\MakeUppercase{\imprimirtitulo}}
+    \end{center}
+
+    \vfill
+
+    % Preâmbulo e Orientadores alinhados à direita
+    \abntex@ifnotempty{\imprimirpreambulo}{%
+      \hspace{.45\textwidth}
+      \begin{minipage}{.5\textwidth}
+        \ABNTEXchapterfont
+        \SingleSpacing
+        \imprimirpreambulo
+        \newline
+
+        % Informação do Orientador
+        {\ABNTEXchapterfont\imprimirorientadorRotulo~\imprimirorientador\par}
+
+        % Informação do Coorientador (só aparece se for definido)
+        \abntex@ifnotempty{\imprimircoorientador}{%
+          {\imprimircoorientadorRotulo~\imprimircoorientador}%
+        }%
+      \end{minipage}%
+    }%
+
+    \vfill
+
+    % Local e Data no rodapé
+    {\ABNTEXchapterfont\imprimirlocal}\\
+    {\ABNTEXchapterfont\imprimirdata}
+
+    \afterpage{\blankpage}
+
+  \end{center}
+}
+\makeatother
+% ---
+
+% ---
+
+% ---
+% Configurações de aparência do PDF final
+
+% alterando o aspecto da cor azul
+\definecolor{blue}{RGB}{41,5,195}
+
+% informações do PDF
+\makeatletter
+\hypersetup{
+  %pagebackref=true,
+  pdftitle={\@title},
+  pdfauthor={\@author},
+  pdfsubject={\imprimirpreambulo},
+  pdfcreator={LaTeX with abnTeX2},
+  pdfkeywords={abnt}{latex}{abntex}{abntex2}{trabalho acadêmico},
+  colorlinks=true,           % false: boxed links; true: colored links
+  linkcolor=blue,            % color of internal links
+  citecolor=blue,            % color of links to bibliography
+  filecolor=magenta,          % color of file links
+  urlcolor=blue,
+  bookmarksdepth=4
+}
+\makeatother
+% ---
+
+% ---
+% Posiciona figuras e tabelas no topo da página quando adicionadas sozinhas
+% em um página em branco. Ver https://github.com/abntex/abntex2/issues/170
+\makeatletter
+\setlength{\@fptop}{5pt} % Set distance from top of page to first float
+\makeatother
+% ---
+
+% ---
+% Possibilita criação de Quadros e Lista de quadros.
+% Ver https://github.com/abntex/abntex2/issues/176
+%
+\newcommand{\quadroname}{Quadro}
+\newcommand{\listofquadrosname}{Lista de quadros}
+
+\newfloat[chapter]{quadro}{loq}{\quadroname}
+\newlistof{listofquadros}{loq}{\listofquadrosname}
+\newlistentry{quadro}{loq}{0}
+
+% configurações para atender às regras da ABNT
+\setfloatadjustment{quadro}{\centering}
+\counterwithout{quadro}{chapter}
+\renewcommand{\cftquadroname}{\quadroname\space}
+\renewcommand*{\cftquadroaftersnum}{\hfill--\hfill}
+
+\setfloatlocations{quadro}{hbtp} % Ver https://github.com/abntex/abntex2/issues/176
+% ---
+
+% ---
+% Espaçamentos entre linhas e parágrafos
+% ---
+
+% O tamanho do parágrafo é dado por:
+\setlength{\parindent}{1.3cm}
+
+% Controle do espaçamento entre um parágrafo e outro:
+\setlength{\parskip}{0.2cm}  % tente também \onelineskip
+
+% ---
+% compila o indice
+% ---
+\makeindex
+% ---
+
+% ----
+% Início do documento
+% ----
+\begin{document}
+
+% Seleciona o idioma do documento (conforme pacotes do babel)
+%\selectlanguage{english}
+\selectlanguage{brazil}
+
+% Retira espaço extra obsoleto entre as frases.
+\frenchspacing
+
+% ----------------------------------------------------------
+% ELEMENTOS PRÉ-TEXTUAIS
+% ----------------------------------------------------------
+% \pretextual
+
+% ---
+% Capa
+% ---
+\imprimircapa
+% ---
+
+% ---
+% Folha de rosto
+% (o * indica que haverá a ficha bibliográfica)
+% ---
+
+\imprimirfolhaderosto*
+% ---
+
+% ---
+% Inserir a ficha bibliografica
+% ---
+
+% Isto é um exemplo de Ficha Catalográfica, ou ``Dados internacionais de
+% catalogação-na-publicação''. Você pode utilizar este modelo como referência.
+% Porém, provavelmente a biblioteca da sua universidade lhe fornecerá um PDF
+% com a ficha catalográfica definitiva após a defesa do trabalho. Quando estiver
+% com o documento, salve-o como PDF no diretório do seu projeto e substitua todo
+% o conteúdo de implementação deste arquivo pelo comando abaixo:
+%
+% \begin{fichacatalografica}
+%     \includepdf{fig_ficha_catalografica.pdf}
+% \end{fichacatalografica}
+
+\begin{fichacatalografica}
+  Ficha catalográfica para trabalhos acadêmicos [Elemento obrigatório.]
+
+  [Insira neste espaço a ficha catalográfica para trabalhos acadêmicos.]
+
+  [A ficha é elaborada pelo(a) autor(a) no seguinte link:
+  http://portalbu.ufsc.br/ficha]
+
+  \afterpage{\blankpage}
+\end{fichacatalografica}
+
+% ---
+
+% ---
+% Inserir folha de aprovação
+% ---
+
+% Isto é um exemplo de Folha de aprovação, elemento obrigatório da NBR
+% 14724/2011 (seção 4.2.1.3). Você pode utilizar este modelo até a aprovação
+% do trabalho. Após isso, substitua todo o conteúdo deste arquivo por uma
+% imagem da página assinada pela banca com o comando abaixo:
+%
+% \begin{folhadeaprovacao}
+% \includepdf{folhadeaprovacao_final.pdf}
+% \end{folhadeaprovacao}
+%
+
+\begin{folhadeaprovacao}
+  \fontsize{12}{1.5}
+  \begin{center}
+    {\ABNTEXchapterfont\imprimirautor}
+
+    \vfill
+
+    % Título do Trabalho
+    \begin{center}
+      {\ABNTEXchapterfont\bfseries\MakeUppercase{\imprimirtitulo}}
+    \end{center}
+
+    \vfill
+
+    Este Trabalho de Conclusão de Curso foi julgado adequado para obtenção do Título de “bacharel em Ciência da Computação” e aprovado em sua forma final pelo Curso de Graduação em Ciências da Computação.
+
+    \vspace{1.5\onelineskip}
+
+    Florianópolis, [dia] de [mês] de 2026.
+
+    \vfill
+
+    \rule{6cm}{1pt}
+
+    Profa. Lúcia Helena Martins Pacheco, Dra.
+    Coordenadora do Curso
+
+    \vfill
+
+    \textbf{Banca Examinadora:}
+
+    \vfill
+
+    \rule{6cm}{1pt}
+
+    \imprimirorientador\\
+    Orientadora
+
+    \vspace{1.5\onelineskip}
+
+    \rule{6cm}{1pt}
+
+    Evandro Chagas Ribeiro da Rosa, Dr.\\
+    Coorientador\\
+    Universidade Federal de Santa Catarina
+
+    \vspace{1.5\onelineskip}
+    \rule{6cm}{1pt}
+
+    Inserir nome, Dr.\\
+    Avaliador \\
+    Inserir instituição
+
+    \vspace{1.5\onelineskip}
+    \rule{6cm}{1pt}
+
+    Inserir nome, Dr.\\
+    Avaliador \\
+    Inserir instituição
+
+  \end{center}
+\end{folhadeaprovacao}
+% ---
+
+% ---
+% Agradecimentos
+% ---
+\begin{agradecimentos}
+  Os agradecimentos
+\end{agradecimentos}
+
+\afterpage{\blankpage}
+
+% ---
+
+\selectlanguage{english}
+
+% ---
+% RESUMOS
+% ---
+
+% resumo em português
+\begin{resumo}
+  No resumo são ressaltados o objetivo da pesquisa, o método utilizado, as discussões e os resultados, com destaque apenas para os pontos principais. O resumo deve ser significativo, composto de uma sequência de frases concisas, afirmativas, e não de uma enumeração de tópicos. Não deve conter citações. Recomenda-se que seja utilizado o verbo na voz ativa e na terceira pessoa do singular. O texto do resumo deve ser digitado em um único bloco, sem espaço de parágrafo. O espaçamento entre linhas é simples e o tamanho da fonte é 12. Abaixo do resumo informar as palavras-chave (palavras ou expressões significativas retiradas do texto) ou termos retirados de thesaurus da área. Deve conter de 150 a 500 palavras. O resumo é elaborado de acordo com a NBR 6028. Para informações sobre o resumo expandido consulte https://repositorio.ufsc.br/handle/123456789/197458.
+
+  \vspace{\onelineskip}
+
+  \noindent
+  \textbf{Palavras-chave}: palavra-chave 1. palavra-chave 2. palavra-chave 3.
+\end{resumo}
+
+% resumo em inglês
+\begin{resumo}
+  Resumo traduzido para outros idiomas, neste caso, inglês. Segue o formato do resumo feito na língua vernácula. As palavras-chave traduzidas, versão em língua estrangeira, são colocadas abaixo do texto precedidas pela expressão “Keywords”, separadas por ponto e vírgula e finalizadas por ponto.
+
+  \vspace{\onelineskip}
+
+  \noindent
+  \textbf{Keywords}: keyword 1. keyword 2. keyword 3.
+\end{resumo}
+
+% ---
+% inserir o sumario
+% ---
+\pdfbookmark[0]{\contentsname}{toc}
+\tableofcontents*
+\cleardoublepage
+% ---
+
+% ----------------------------------------------------------
+% ELEMENTOS TEXTUAIS
+% ----------------------------------------------------------
+\textual
+
+\include{chapters/example}
+
+% ----------------------------------------------------------
+% ELEMENTOS PÓS-TEXTUAIS
+% ----------------------------------------------------------
+\postextual
+% ----------------------------------------------------------
+
+% ----------------------------------------------------------
+% Referências bibliográficas
+% ----------------------------------------------------------
+\renewcommand{\bibname}{References}
+\bibliography{main}
+
+%---------------------------------------------------------------------
+% INDICE REMISSIVO
+%---------------------------------------------------------------------
+\phantompart
+\printindex
+%---------------------------------------------------------------------
+
+\end{document}
