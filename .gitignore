@@ -1,0 +1,10 @@
+*.idx
+*.aux
+*.ilg
+*.log
+*.toc
+*.inf
+*.fls
+*.ind
+*.fdb_latexmk
+*.synctex.gz
